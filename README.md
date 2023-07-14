@@ -56,3 +56,16 @@ The special `@` processor will allow you to have more custom behavior than just 
 ```
 
 So, like, for debugging, that'll report when it comes across a block type you haven't handled yet.
+
+## Contributing
+
+To get the repo working:
+
+```bash
+npm ci
+npm build:peg
+```
+
+If you make changes to `src/bloks.pegjs`, you must run `npm build:peg` again.
+
+Of note, there's no unit tests as yet.  I'll make a few sometime this week.
