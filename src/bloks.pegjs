@@ -43,7 +43,9 @@ StringChar
   / "\\" "r" { return '\\r'; }
   / "\\" "t" { return '\\t'; }
   / "\\" "b" { return '\\b'; }
-  / "\\" "u" hex:$[0-9][0-9][0-9][0-9] { return String.fromCodePoint(parseInt(hex, 16)); }
+  / "\\" "u" hex:$(HexDigit HexDigit HexDigit HexDigit) { return String.fromCodePoint(parseInt(hex, 16)); }
   / "\\" ch:[^\\bfrtbu] { return ch; }
 
-_ = [ \\r\\n\\t]*
+HexDigit = [0-9a-fA-F]
+
+_ = [ \r\n\t]*
