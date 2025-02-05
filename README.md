@@ -82,4 +82,4 @@ npm build:peg
 
 If you make changes to `src/bloks.pegjs`, you must run `npm build:peg` again.
 
-Of note, there's no unit tests as yet.  I'll make a few sometime this week.
+Of note, there's few unit tests as yet.  If you submit an issue, I'll fix it and write a test against the error case.
