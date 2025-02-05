@@ -17,6 +17,7 @@
     "build:railroad": "grammkit src/bloks.pegjs -o docs/bloks.html",
     "build:bundle": "microbundle src/index.mjs --compress=false --strict=true --name=createBloksParser --sourcemap=true",
     "build": "npm run build:peg && npm run build:bundle",
+    "test": "npm run build:peg && node --test",
     "publish": "npm run build"
   },
   "devDependencies": {

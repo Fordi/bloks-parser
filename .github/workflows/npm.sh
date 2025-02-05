@@ -1,5 +1,5 @@
 #!/bin/bash
-HERE="$( cd "$( dirname "${BASH_SOURCE[0]}/.." )" &> /dev/null && pwd )"
+HERE="$( cd "$( dirname "${BASH_SOURCE[0]}/../.." )" &> /dev/null && pwd )"
 # Make sure we're working from the project root
 cd "${HERE}" || exit
 
