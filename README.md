@@ -43,7 +43,7 @@ const parse = createBlokParser({
     return result;
   }
 });
-const payload = '(bk.action.array.Make,(bk.action.i32.Const,42069),"nice",(bk.action.bool.Const,true),bk.action.map.Make,(bk.action.array.Make,"a","b","c"),(bk.action.array.Make,"1","2","3"))';
+const payload = '(bk.action.array.Make,(bk.action.i32.Const,42069),"nice",(bk.action.bool.Const,true),(bk.action.map.Make,(bk.action.array.Make,"a","b","c"),(bk.action.array.Make,(bk.action.i32.Const,1),(bk.action.i32.Const,2),(bk.action.i32.Const,3))))';
 console.log(JSON.stringify(parse(payload)));
 ```
 
