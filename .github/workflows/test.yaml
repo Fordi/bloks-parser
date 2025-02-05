@@ -3,10 +3,10 @@ name: Test actions
 on:
   push:
     branches:
-      - "*"
+      - "main"
 
 jobs:
-  Linting:
+  Testing:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
