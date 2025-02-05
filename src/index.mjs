@@ -1,5 +1,7 @@
 import { parse } from './bloks.mjs';
-import DEFAULT_PROCESSORS from './DEFAULT_PROCESSORS.mjs';
+import DEFAULT_PROCESSORS from './processors.mjs';
+
+export { BASIC_PROCESSORS } from './processors.mjs';
 
 export default function createBloksParser(processors = {}) {
   const processBlok = (moreProcessors) => (name, args) => {

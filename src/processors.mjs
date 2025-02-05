@@ -1,5 +1,8 @@
 const DEFAULT_PROCESSORS = {
   "@": (name, args) => [name, ...args],
+};
+
+export const BASIC_PROCESSORS = {
   "bk.action.array.Make": (_, entries) => entries,
   "bk.action.i32.Const": (_, [value]) => parseInt(value),
   "bk.action.bool.Const": (_, [value]) => !!value,
@@ -11,4 +14,5 @@ const DEFAULT_PROCESSORS = {
     return result;
   }
 };
+
 export default DEFAULT_PROCESSORS;

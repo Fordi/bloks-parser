@@ -35,13 +35,27 @@ const parse = createBlokParser({
   "bk.action.array.Make": (_, entries) => entries,
   "bk.action.i32.Const": (_, [value]) => parseInt(value),
   "bk.action.bool.Const": (_, [value]) => !!value,
+  "bk.action.map.Make": (_, [keys, values]) => {
+    const result = {};
+    for (let i = 0; i < keys.length; i++) {
+      result[keys[i]] = values[i];
+    }
+    return result;
+  }
 });
-const payload = '(bk.action.array.Make, (bk.action.i32.Const, 42069), "nice", (bk.action.bool.Const, true))';
+const payload = '(bk.action.array.Make,(bk.action.i32.Const,42069),"nice",(bk.action.bool.Const,true),bk.action.map.Make,(bk.action.array.Make,"a","b","c"),(bk.action.array.Make,"1","2","3"))';
 console.log(JSON.stringify(parse(payload)));
 ```
 
 ```json
-[42069, "nice", true]
+[42069,"nice",true,{"a":1,"b":2,"c":3}]
+```
+
+The above are exported as BASIC_PROCESSORS:
+
+```javascript
+import createBlokParser, { BASIC_PROCESSORS } from '@fordi-org/bloks-parser';
+const parseWithBasics = createBlokParser(BASIC_PROCESSORS);
 ```
 
 The special `@` processor will allow you to have more custom behavior than just `(name, args) => [name, ...args]`, which is the default.  This is useful in that you could have something like,
