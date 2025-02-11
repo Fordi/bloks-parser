@@ -22,7 +22,7 @@ Arg
   / Boolean
 
 Number
-  = n:$[0-9]+ { return parseInt(n); }
+  = s:[+-]? n:$[0-9]+ d:$('.' [0-9]+)? e:$('e' [+-]? [0-9]+)? { return parseFloat((s ?? '') + n + (d ?? '') + (e ?? '')); }
 
 String
   = '"' content:StringChar* '"' { return content.join(''); }
