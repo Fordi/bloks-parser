@@ -1,5 +1,5 @@
 const DEFAULT_PROCESSORS = {
-  "@": (name, args) => [name, ...args],
+  "@": (name, args, isLocal) => [`${isLocal ? '#' : ''}${name}`, args],
 };
 
 export const BASIC_PROCESSORS = {
