@@ -24,4 +24,16 @@ describe("createBloksParser", () => {
       { a: 1, b: 2, c: 3 },
     ]);
   });
+  it("supports platform handlers (#5)", () => {
+    const fixture =  '(#localFunction, 1, 2, 3)';
+    const parser = createBloksParser({ ...BASIC_PROCESSORS, "@": (name, args, isLocal) => ({ name, isLocal, args }) });
+    const actual = parser(fixture);
+    assert.deepEqual(actual, { name: "localFunction", isLocal: true, args: [1, 2, 3] });
+  });
+  it("supports negative, floating point, and SI numbers (#6)", () => {
+    const fixture =  '(bk.action.array.Make, -1, 2.3, 4e5, -6.78e9)';
+    const parser = createBloksParser({ ...BASIC_PROCESSORS, "@": (name, args, isLocal) => ({ name, isLocal, args }) });
+    const actual = parser(fixture);
+    assert.deepEqual(actual, [-1, 2.3, 400000, -6780000000]);
+  });
 });
