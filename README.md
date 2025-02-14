@@ -62,8 +62,10 @@ The special `@` processor will allow you to have more custom behavior than just 
 
 ```javascript
 /*...*/
-"@": (name, args) => {
-  console.warn(`Unknown blok: ${name} (\n ${JSON.stringify(args, null, 2).split('\n').join('\n  ')}\n)`);
+"@": (name, args, isLocal) => {
+  console.warn(`Unknown blok: ${isLocal ? '#' : ''}${name} (\n ${
+    JSON.stringify(args, null, 2).split('\n').join('\n  ')
+  }\n)`);
   return [name, ...args];
 },
 /*...*/
