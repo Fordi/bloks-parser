@@ -36,4 +36,11 @@ describe("createBloksParser", () => {
     const actual = parser(fixture);
     assert.deepEqual(actual, [-1, 2.3, 400000, -6780000000]);
   });
+  it("Handles locals with the a minimal function", () => {
+    const fixture = '(#localFunction, 1, 2, 3)';
+    const parser = createBloksParser({ '@': (...args) => args });
+    const actual = parser(fixture);
+    const expected = ["localFunction", [1, 2, 3], true];
+    assert.deepEqual(actual, expected);
+  });
 });

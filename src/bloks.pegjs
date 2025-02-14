@@ -7,7 +7,7 @@ Blok
   = _ "(" _ name:$ClassName _ args:("," _ next:Arg { return next; })* _ ")" _ {
     return processBlok(name, args);
   }
-  / _ "(" _ '#' name:$Identifier _ args:("," _ next:Arg { return next; })* _ ")" _ {
+  / _ "(" _ '#' name:$(AlphaNum*) _ args:("," _ next:Arg { return next; })* _ ")" _ {
     return processBlok(name, args, true);
   }
 
@@ -15,7 +15,7 @@ ClassName
   = $Identifier ("." next:$Identifier)*
 
 Identifier
-  = [a-zA-Z_] [a-zA-Z_0-9]*
+  = Alpha AlphaNum*
 
 Arg
   = Blok
@@ -25,7 +25,7 @@ Arg
   / Boolean
 
 Number
-  = s:$[+-]? n:$[0-9]+ d:$('.' [0-9]+)? e:$('e' [+-]? [0-9]+)? { return parseFloat((s ?? '') + n + (d ?? '') + (e ?? '')); }
+  = s:$[+-]? n:$Digit+ d:$('.' Digit+)? e:$('e' [+-]? Digit+)? { return parseFloat((s ?? '') + n + (d ?? '') + (e ?? '')); }
 
 String
   = '"' content:$StringChar* '"' { return content; }
@@ -49,6 +49,9 @@ StringChar
   / "\\" "u" hex:$(HexDigit HexDigit HexDigit HexDigit) { return String.fromCodePoint(parseInt(hex, 16)); }
   / "\\" ch:[^\\bfrtbu] { return ch; }
 
+Alpha = [a-zA-Z_]
+AlphaNum = [a-zA-Z_0-9]
+Digit = [0-9]
 HexDigit = [0-9a-fA-F]
 
 _ = [ \r\n\t]*
