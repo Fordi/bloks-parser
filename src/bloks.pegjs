@@ -7,7 +7,7 @@ Blok
   = _ "(" _ name:$ClassName _ args:("," _ next:Arg { return next; })* _ ")" _ {
     return processBlok(name, args);
   }
-  / _ "(" _ '#' name:$(AlphaNum*) _ args:("," _ next:Arg { return next; })* _ ")" _ {
+  / _ "(" _ '#' name:$(LocalTagChar*) _ args:("," _ next:Arg { return next; })* _ ")" _ {
     return processBlok(name, args, true);
   }
 
@@ -50,7 +50,9 @@ StringChar
   / "\\" ch:[^\\bfrtbu] { return ch; }
 
 Alpha = [a-zA-Z_]
-AlphaNum = [a-zA-Z_0-9]
+LocalTagChar = AlphaNum / Separator
+AlphaNum = [a-zA-Z0-9]
+Separator = [_\-:]
 Digit = [0-9]
 HexDigit = [0-9a-fA-F]
 

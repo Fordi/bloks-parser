@@ -66,6 +66,14 @@ for (const [mode, origin] of Object.entries(MODES)) {
       const expected = ["1tof51oa0t", [1, 2, 3], true];
       assert.deepEqual(actual, expected);
     });
+
+    it("Handles locals with : and -", () => {
+      const fixture = '(#1tof5:1oa0t-goat, 1, 2, 3)';
+      const parser = createBloksParser({ '@': (...args) => args });
+      const actual = parser(fixture);
+      const expected = ["1tof5:1oa0t-goat", [1, 2, 3], true];
+      assert.deepEqual(actual, expected);
+    });
   
   });
 }
