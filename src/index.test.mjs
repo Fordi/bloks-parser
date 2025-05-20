@@ -74,6 +74,12 @@ for (const [mode, origin] of Object.entries(MODES)) {
       const expected = ["1tof5:1oa0t-goat", [1, 2, 3], true];
       assert.deepEqual(actual, expected);
     });
-  
+
+    it("Handles _ in class names", () => {
+      const fixture =  '(bk.action.text_input.ClearText,(bk.action.core.GetArg, 1),(bk.action.core.GetArg, 0))';
+      const parser = createBloksParser({ '@': (name, args) => [name, ...args] });
+      const actual = parser(fixture);
+      assert.deepEqual(actual, ["bk.action.text_input.ClearText",["bk.action.core.GetArg",1], ["bk.action.core.GetArg",0]]); 
+    });
   });
 }

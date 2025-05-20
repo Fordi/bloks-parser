@@ -49,11 +49,11 @@ StringChar
   / "\\" "u" hex:$(HexDigit HexDigit HexDigit HexDigit) { return String.fromCodePoint(parseInt(hex, 16)); }
   / "\\" ch:[^\\bfrtbu] { return ch; }
 
-Alpha = [a-zA-Z_]
-LocalTagChar = AlphaNum / Separator
-AlphaNum = [a-zA-Z0-9]
-Separator = [_\-:]
 Digit = [0-9]
-HexDigit = [0-9a-fA-F]
+Alpha = [a-zA-Z_]
+Separator = [\-:]
+HexDigit = Digit / [a-fA-F]
+AlphaNum = Alpha / Digit
+LocalTagChar = AlphaNum / Separator
 
 _ = [ \r\n\t]*
