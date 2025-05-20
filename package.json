@@ -18,7 +18,7 @@
   "repository": "https://github.com/fordi/bloks-parser",
   "type": "module",
   "scripts": {
-    "build:peg": "peggy --format es src/bloks.pegjs -o src/bloks.mjs",
+    "build:peg": "peggy --format es --output src/bloks.mjs --source-map src/bloks.mjs.map src/bloks.pegjs",
     "build:peg-debug": "peggy --trace --format es src/bloks.pegjs -o src/bloks.mjs",
     "build:railroad": "grammkit src/bloks.pegjs -o docs/bloks.html",
     "build:bundle": "microbundle src/index.mjs --compress=false --strict=true --name=createBloksParser --sourcemap=true",
