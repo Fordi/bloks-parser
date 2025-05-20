@@ -1,5 +1,6 @@
 node_modules
 src/bloks.mjs
+src/bloks.mjs.map
 dist/*.js
 dist/*.cjs
 dist/*.mjs
