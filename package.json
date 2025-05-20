@@ -17,16 +17,19 @@
     "build:railroad": "grammkit src/bloks.pegjs -o docs/bloks.html",
     "build:bundle": "microbundle src/index.mjs --compress=false --strict=true --name=createBloksParser --sourcemap=true",
     "build": "npm run build:peg && npm run build:railroad && npm run build:bundle",
-    "test": "npm run build && node --test",
-    "publish": "npm run test"
+    "test": "npm run lint && npm run build && node --test",
+    "test:quick": "npm run build:peg && node --test --env-file .env.quick",
+    "prepublishOnly": "npm run test",
+    "lint": "eslint"
   },
   "devDependencies": {
-    "eslint": "^8.45.0",
+    "eslint": "^9.27.0",
+    "globals": "^16.1.0",
     "grammkit": "^0.7.2",
     "microbundle": "^0.15.1",
-    "peggy": "^3.0.2"
+    "peggy": "^5.0.2"
   },
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=18.0.0"
   }
 }

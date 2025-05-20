@@ -3,7 +3,7 @@ import assert from "node:assert";
 
 const MODES = {
   source: "./index.mjs",
-  dist: "../dist/index.mjs"
+  ...(!process.env.QUICK && { dist: "../dist/index.mjs" }),
 };
 
 for (const [mode, origin] of Object.entries(MODES)) {

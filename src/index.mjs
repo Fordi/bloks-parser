@@ -3,7 +3,7 @@ import DEFAULT_PROCESSORS from './processors.mjs';
 
 export { BASIC_PROCESSORS } from './processors.mjs';
 
-export default function createBloksParser(processors = {}) {
+export function createBloksParser(processors = {}) {
   const processBlok = (moreProcessors) => (name, args, isLocal) => {
     const proc = { ...DEFAULT_PROCESSORS, ...processors, ...moreProcessors };
     const key = `${isLocal ? '#' : ''}${name}`;
@@ -11,3 +11,5 @@ export default function createBloksParser(processors = {}) {
   };
   return (bloks_payload, moreProcessors) => parse(bloks_payload, { processBlok: processBlok(moreProcessors) });
 };
+
+export default createBloksParser;
