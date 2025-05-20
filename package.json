@@ -19,10 +19,11 @@
   "type": "module",
   "scripts": {
     "build:peg": "peggy --format es --output src/bloks.mjs --source-map src/bloks.mjs.map src/bloks.pegjs",
-    "build:peg-debug": "peggy --trace --format es src/bloks.pegjs -o src/bloks.mjs",
+    "build:peg-debug": "peggy --format es --output src/bloks.mjs --source-map src/bloks.mjs.map --trace src/bloks.pegjs",
     "build:railroad": "grammkit src/bloks.pegjs -o docs/bloks.html",
+    "build:docs": "node tools/markdown.mjs",
     "build:bundle": "microbundle src/index.mjs --compress=false --strict=true --name=createBloksParser --sourcemap=true",
-    "build": "npm run build:peg && npm run build:railroad && npm run build:bundle",
+    "build": "npm run build:peg && npm run build:railroad && npm run build:docs && npm run build:bundle",
     "test": "npm run lint && npm run build && node --test",
     "test:quick": "npm run build:peg && node --test --env-file .env.quick",
     "prepublishOnly": "npm run test",
@@ -32,8 +33,10 @@
     "eslint": "^9.27.0",
     "globals": "^16.1.0",
     "grammkit": "^0.7.2",
+    "markdown-it": "^14.1.0",
     "microbundle": "^0.15.1",
-    "peggy": "^5.0.2"
+    "peggy": "^5.0.2",
+    "pretty": "^2.0.0"
   },
   "engines": {
     "node": ">=18.0.0"

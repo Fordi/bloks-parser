@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf8" />
+    <title>@fordi-org/bloks-parser</title>
+
+  </head>
+
+  <body>
+    <h1>Bloks Parser</h1>
+    <p>This is a small parser library for parsing the <code>blok_payload</code> field of Instagram / Threads API responses. This parser has no API details about IG/Threads APIs; it is <em>only</em> for being able to pick apart the payloads in code.</p>
+    <p><a href="https://fordi.github.io/bloks-parser/bloks.html">bloks grammar</a></p>
+    <h2>Usage</h2>
+    <pre><code class="language-javascript">import { createBlokParser } from '@fordi-org/bloks-parser';
+
+const bloks_payload = `
+  (bk.action.map.Make,
+    (bk.action.array.Make, &quot;login_type&quot;, &quot;login_source&quot;),
+    (bk.action.array.Make, &quot;Password&quot;, &quot;Login&quot;)
+  )
+`;
+const parseBloks = createBlokParser();
+const bloks = parseBloks(bloks_payload);
+</code></pre>
+    <p>and the result will be:</p>
+    <pre><code class="language-json">[&quot;bk.action.map.Make&quot;,
+  [&quot;bk.action.map.Make&quot;, &quot;login_type&quot;, &quot;login_source&quot;],
+  [&quot;bk.action.map.Make&quot;, &quot;Password&quot;, &quot;Login&quot;]
+]
+</code></pre>
+    <p>The parser is also designed so you can create your own handlers for each blok type when generating the parser, e.g.,</p>
+    <pre><code class="language-javascript">import { createBlokParser } from '@fordi-org/bloks-parser';
+
+const parse = createBlokParser({
+  &quot;bk.action.array.Make&quot;: (_, entries) =&gt; entries,
+  &quot;bk.action.i32.Const&quot;: (_, [value]) =&gt; parseInt(value),
+  &quot;bk.action.bool.Const&quot;: (_, [value]) =&gt; !!value,
+  &quot;bk.action.map.Make&quot;: (_, [keys, values]) =&gt; {
+    const result = {};
+    for (let i = 0; i &lt; keys.length; i++) {
+      result[keys[i]] = values[i];
+    }
+    return result;
+  }
+});
+const payload = '(bk.action.array.Make,(bk.action.i32.Const,42069),&quot;nice&quot;,(bk.action.bool.Const,true),(bk.action.map.Make,(bk.action.array.Make,&quot;a&quot;,&quot;b&quot;,&quot;c&quot;),(bk.action.array.Make,(bk.action.i32.Const,1),(bk.action.i32.Const,2),(bk.action.i32.Const,3))))';
+console.log(JSON.stringify(parse(payload)));
+</code></pre>
+    <pre><code class="language-json">[42069,&quot;nice&quot;,true,{&quot;a&quot;:1,&quot;b&quot;:2,&quot;c&quot;:3}]
+</code></pre>
+    <p>The above are exported as BASIC_PROCESSORS:</p>
+    <pre><code class="language-javascript">import { createBlokParser, BASIC_PROCESSORS } from '@fordi-org/bloks-parser';
+const parseWithBasics = createBlokParser(BASIC_PROCESSORS);
+</code></pre>
+    <p>The special <code>@</code> processor will allow you to have more custom behavior than just <code>(name, args) =&gt; [name, ...args]</code>, which is the default. This is useful in that you could have something like,</p>
+    <pre><code class="language-javascript">/*...*/
+&quot;@&quot;: (name, args, isLocal) =&gt; {
+  console.warn(`Unknown blok: ${isLocal ? '#' : ''}${name} (\n ${
+    JSON.stringify(args, null, 2).split('\n').join('\n  ')
+  }\n)`);
+  return [name, ...args];
+},
+/*...*/
+</code></pre>
+    <p>So, like, for debugging, that'll report when it comes across a block type you haven't handled yet.</p>
+    <h2>Contributing</h2>
+    <p>To get the repo working:</p>
+    <pre><code class="language-bash">npm ci
+npm build:peg
+</code></pre>
+    <p>If you make changes to <code>src/bloks.pegjs</code>, you must run <code>npm build:peg</code> again.</p>
+    <p>Of note, there's few unit tests as yet. If you submit an issue, I'll fix it and write a test against the error case.</p>
+  </body>
+
+</html>

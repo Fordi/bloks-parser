@@ -1,4 +1,4 @@
-# Blok Parser
+# Bloks Parser
 
 This is a small parser library for parsing the `blok_payload` field of Instagram / Threads API responses.  This parser has no API details about IG/Threads APIs; it is _only_ for being able to pick apart the payloads in code.
 
