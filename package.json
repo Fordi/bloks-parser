@@ -2,11 +2,17 @@
   "name": "@fordi-org/bloks-parser",
   "version": "1.1.6",
   "description": "",
-  "main": "./dist/index.umd.js",
-  "module": "./dist/index.mjs",
+  "source": "./src/index.mjs",
   "exports": {
-    ".": "./dist/index.mjs"
+    "require": "./dist/index.cjs",
+    "default": "./dist/index.mjs",
+    "types": "./dist/index.d.mts"
   },
+  "types": "./dist/index.d.mts",
+  "main": "./dist/index.cjs",
+  "umd:main": "./dist/index.umd.js",
+  "module": "./dist/index.mjs",
+  "unpkg": "./dist/index.umd.js",
   "author": "Bryan Elliott <fordiman@gmail.com>",
   "license": "ISC",
   "repository": "https://github.com/fordi/bloks-parser",
