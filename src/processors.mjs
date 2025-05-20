@@ -1,4 +1,4 @@
-const DEFAULT_PROCESSORS = {
+export const DEFAULT_PROCESSORS = {
   "@": (name, args, isLocal) => [`${isLocal ? '#' : ''}${name}`, args],
 };
 
@@ -14,5 +14,3 @@ export const BASIC_PROCESSORS = {
     return result;
   }
 };
-
-export default DEFAULT_PROCESSORS;

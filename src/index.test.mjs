@@ -11,7 +11,7 @@ for (const [mode, origin] of Object.entries(MODES)) {
     let createBloksParser, BASIC_PROCESSORS;
     beforeEach(async () => {
       const bloks = await import(origin);
-      createBloksParser = bloks.default;
+      createBloksParser = bloks.createBloksParser;
       BASIC_PROCESSORS = bloks.BASIC_PROCESSORS;
     });
 

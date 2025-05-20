@@ -5,7 +5,7 @@ This is a small parser library for parsing the `blok_payload` field of Instagram
 ## Usage
 
 ```javascript
-import createBlokParser from '@fordi-org/bloks-parser';
+import { createBlokParser } from '@fordi-org/bloks-parser';
 
 const bloks_payload = `
   (bk.action.map.Make,
@@ -29,7 +29,7 @@ and the result will be:
 The parser is also designed so you can create your own handlers for each blok type when generating the parser, e.g.,
 
 ```javascript
-import createBlokParser from '@fordi-org/bloks-parser';
+import { createBlokParser } from '@fordi-org/bloks-parser';
 
 const parse = createBlokParser({
   "bk.action.array.Make": (_, entries) => entries,
@@ -54,7 +54,7 @@ console.log(JSON.stringify(parse(payload)));
 The above are exported as BASIC_PROCESSORS:
 
 ```javascript
-import createBlokParser, { BASIC_PROCESSORS } from '@fordi-org/bloks-parser';
+import { createBlokParser, BASIC_PROCESSORS } from '@fordi-org/bloks-parser';
 const parseWithBasics = createBlokParser(BASIC_PROCESSORS);
 ```
 
